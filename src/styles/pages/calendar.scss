@@ -1,0 +1,51 @@
+$primary-color: #3498db;
+$secondary-color: #e74c3c;
+$background-color: #f4f6f9;
+$font-family: 'Arial', sans-serif;
+
+body {
+  font-family: $font-family;
+  background-color: $background-color;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  margin-top: 25px;
+  margin-left: 50px;
+  background-color: $primary-color;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+#calendar {
+  margin: 20px 50px;
+  border: 1px solid $secondary-color;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  .tui-full-calendar-weekday-sun,
+  .tui-full-calendar-weekday-sat {
+    color: $secondary-color;
+  }
+
+  .tui-full-calendar-dayname-date {
+    background-color: $background-color;
+    padding: 10px;
+  }
+}
+
+.calendar-week-dayname {
+  font-weight: bold;
+  color: darken($background-color, 30%);
+}

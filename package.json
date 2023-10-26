@@ -1,0 +1,24 @@
+{
+  "name": "centennial-callender",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.4.2",
+    "sass": "^1.69.4",
+    "svelte": "^4.0.5",
+    "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "scss": "^0.2.4",
+    "svelte-routing": "^2.5.0",
+    "tui-calendar": "^1.15.3",
+    "tui-date-picker": "^4.3.3",
+    "tui-time-picker": "^2.1.6"
+  }
+}

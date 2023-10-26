@@ -1,0 +1,11 @@
+.wrapper.home {
+  .test {
+    background-color: #cc0000;
+    color: white;
+    padding: 25px 0;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
