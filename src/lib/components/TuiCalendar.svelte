@@ -3,7 +3,6 @@
     import 'tui-calendar/dist/tui-calendar.css';
     import Calendar from 'tui-calendar';
 
-
     let calendar;
     let viewMode = 'month';
     let isCurrentWeek = true;
@@ -43,6 +42,7 @@
             taskView: false,
             useDetailPopup: true,
             isReadOnly: true,
+            //template: template,
             template: {
                 monthDayname: day => `<span class="calendar-week-dayname">${day.label}</span>`,
             },
