@@ -3,6 +3,7 @@
     import 'tui-calendar/dist/tui-calendar.css';
     import Calendar from 'tui-calendar';
 
+
     let calendar;
     let viewMode = 'month';
     let isCurrentWeek = true;
@@ -13,17 +14,22 @@
     calendar = new Calendar('#calendar', {
             defaultView: viewMode,
             taskView: false,
+            useDetailPopup: true,
+            isReadOnly: true,
             template: {
                 monthDayname: day => `<span class="calendar-week-dayname">${day.label}</span>`,
             },
         });
+    
+    // Fetch month event data from API
+    async function fetchEventsByMonth(year, month) {
+      const response = await fetch(`http://localhost:3000/api/events/${year}/${month}`);
+      const data = await response.json();
+      console.log(data);
+      return data;
+    }
 
-        async function fetchEventsByMonth(year, month) {
-    const response = await fetch(`http://localhost:3000/api/events/${year}/${month}`);
-    const data = await response.json();
-    return data;
-  }
-
+  // Load Events
   onMount(async () => {
     loadEvents(year, month);
   });
@@ -38,6 +44,9 @@
         if (calendar) {
           calendar.clear(); // Clear existing events
           monthlyEvents.forEach(event => {
+            if (event.URL){
+              var body = "<a href='+ event.URL + ' target='_href'>eCentennial Link</a>"
+            }
             calendar.createSchedules([
               {
                 id: event._id,
@@ -47,6 +56,8 @@
                 dueDateClass: '',
                 start: event.FromDate,
                 end: event.ToDate,
+                location: event.Location,
+                body: body
               }
             ]);
           });
