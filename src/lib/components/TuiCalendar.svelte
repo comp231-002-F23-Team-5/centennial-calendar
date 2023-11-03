@@ -1,19 +1,43 @@
 <script>
     import {onMount} from 'svelte';
-    import 'tui-calendar/dist/tui-calendar.css';
     import Calendar from 'tui-calendar';
+
+    import 'tui-calendar/dist/tui-calendar.css';
 
     let calendar;
     let viewMode = 'month';
     let isCurrentWeek = true;
 
-    onMount(() => {
+    onMount(async () => {
+        let eventDataRaw = await fetch('http://localhost:3000/api/events/2023/10/');
+        let eventData = await eventDataRaw.json();
+
+        let schedules = Array.from(eventData).map(event => ({
+            id: event._id,
+            title: event.Subject,
+            isAllDay: false,
+            start: event.FromDate,
+            end: event.ToDate,
+            category: 'time',
+            location: event.Location,
+            raw: {
+                type: event.Type
+            },
+            state: 'Busy'
+        }));
+
         calendar = new Calendar('#calendar', {
             defaultView: viewMode,
             taskView: false,
             template: {
                 monthDayname: day => `<span class="calendar-week-dayname">${day.label}</span>`,
             },
+        });
+
+        calendar.createSchedules(schedules);
+
+        calendar.on('clickSchedule', event => {
+            console.log(event.schedule);
         });
     });
 
