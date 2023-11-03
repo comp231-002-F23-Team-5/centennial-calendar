@@ -10,7 +10,34 @@
     let currentDate = new Date();
     let year = currentDate.getFullYear(); // Get current year
     let month = currentDate.getMonth() + 1; // Get current month (0-11)
-    
+
+    const calendars = [
+    {
+      id: "Class",
+      name: "Class",
+      color: "#ffffff",
+      bgColor: "#9e5fff",
+      dragBgColor: "#32cf4c",
+      borderColor: "#32cf4c"
+    },
+    {
+      id: "Assignment",
+      name: "Quiz",
+      color: "#ffffff",
+      bgColor: "#00a9ff",
+      dragBgColor: "#6067f0",
+      borderColor: "#6067f0"
+    },
+    {
+      id: "Quiz",
+      name: "Assignment",
+      color: "#ffffff",
+      bgColor: "#00a9ff",
+      dragBgColor: "#d42fb5",
+      borderColor: "#d42fb5"
+    }
+  ];
+
     calendar = new Calendar('#calendar', {
             defaultView: viewMode,
             taskView: false,
@@ -19,6 +46,7 @@
             template: {
                 monthDayname: day => `<span class="calendar-week-dayname">${day.label}</span>`,
             },
+            calendars: calendars,
         });
     
     // Fetch month event data from API
@@ -50,7 +78,7 @@
             calendar.createSchedules([
               {
                 id: event._id,
-                calendarId: '1',
+                calendarId: event.Type,
                 title: event.Subject,
                 category: 'time',
                 dueDateClass: '',
