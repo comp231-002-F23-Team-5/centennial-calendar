@@ -49,3 +49,8 @@ button {
   font-weight: bold;
   color: darken($background-color, 30%);
 }
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
