@@ -9,12 +9,15 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@rollup/plugin-replace": "^5.0.5",
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
+    "dotenv": "^16.3.1",
     "sass": "^1.69.4",
     "svelte": "^4.0.5",
     "vite": "^4.4.5"
   },
   "dependencies": {
+    "moment-timezone": "^0.5.43",
     "scss": "^0.2.4",
     "svelte-routing": "^2.5.0",
     "tui-calendar": "^1.15.3",

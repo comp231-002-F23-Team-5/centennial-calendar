@@ -9,7 +9,6 @@ import TuiCalendar from "../components/TuiCalendar.svelte";
 </svelte:head>
 
 <div class="wrapper home">
-    <NavMenu></NavMenu>
     <TuiCalendar></TuiCalendar>
 </div>
 
