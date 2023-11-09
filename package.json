@@ -17,6 +17,7 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
+    "flowbite-svelte": "^0.44.19",
     "moment-timezone": "^0.5.43",
     "scss": "^0.2.4",
     "svelte-routing": "^2.5.0",
