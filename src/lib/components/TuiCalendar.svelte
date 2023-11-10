@@ -1,9 +1,10 @@
 <script>
-    import {onMount, onDestroy} from 'svelte';
+    import {onDestroy, onMount} from 'svelte';
     import 'tui-calendar/dist/tui-calendar.css';
     import Calendar from 'tui-calendar';
     import calendars from "../utils/CalendarPattern.js";
     import fetchEventsByMonth from "../utils/Api.js";
+    import {Button, Dropdown, DropdownItem} from 'flowbite-svelte';
 
     let calendar;
     let viewMode = 'month';
@@ -11,7 +12,6 @@
     let currentDate = new Date();
     let year = currentDate.getFullYear(); // Get current year
     let month = currentDate.getMonth() + 1; // Get current month (0-11)
-
 
     calendar = new Calendar('#calendar', {
         defaultView: viewMode,
@@ -117,19 +117,27 @@
         isCurrentWeek = true;
         calendar.today();
     }
+
 </script>
 
 <div class="button-wrapper">
-    <button on:click={switchView}>Switch View</button>
+    <div class="test">
+        <Button>{viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}</Button>
+        <Dropdown>
+            <DropdownItem on:click={switchView}>Day</DropdownItem>
+            <DropdownItem on:click={switchView}>Month</DropdownItem>
+        </Dropdown>
+    </div>
+
     <button on:click={prevMonth}>&lt;</button>
     <button>{month}, {year}</button>
     <button on:click={nextMonth}>&gt;</button>
+    {#if !isCurrentWeek}
+        <button on:click={goToCurrentMonth}>Go to Current Month</button>
+    {/if}
 </div>
 
 
-{#if !isCurrentWeek}
-    <button on:click={goToCurrentMonth}>Go to Current Month</button>
-{/if}
 
 <div id="calendar"></div>
 
