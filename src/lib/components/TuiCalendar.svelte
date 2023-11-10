@@ -122,7 +122,7 @@
 
 <div class="button-wrapper">
     <div class="test">
-        <Button>Dropdown button</Button>
+        <Button>{viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}</Button>
         <Dropdown>
             <DropdownItem on:click={switchView}>Day</DropdownItem>
             <DropdownItem on:click={switchView}>Month</DropdownItem>
