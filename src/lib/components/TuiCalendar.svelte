@@ -4,7 +4,7 @@
     import Calendar from 'tui-calendar';
     import calendars from "../utils/CalendarPattern.js";
     import fetchEventsByMonth from "../utils/Api.js";
-    import {Button, Dropdown, DropdownItem} from 'flowbite-svelte';
+    import {Img, Button, Dropdown, DropdownItem} from 'flowbite-svelte';
 
     let calendar;
     let viewMode = 'month';
@@ -108,8 +108,19 @@
         isCurrentWeek = isViewingCurrentWeek();
     }
 
-    function switchView() {
-        viewMode = viewMode === 'month' ? 'day' : 'month';
+    function switchView(mode) {
+        //viewMode = viewMode === 'month' ? 'day' : 'month';
+        switch(mode) {
+            case "week":
+                viewMode = "week";
+                break;
+            case "day":
+                viewMode = "day";
+                break;
+            default:
+                viewMode = "month";
+                break;
+        }
         calendar.changeView(viewMode, true);
     }
 
@@ -121,11 +132,20 @@
 </script>
 
 <div class="button-wrapper">
-    <div class="test">
+    <a href="https://www.centennialcollege.ca/" target="_blank"><Img src="src/assets/logo.jpeg" width="120" 
+    height="40" alt="logo" /></a>
+    <div class="viewmode">
         <Button>{viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}</Button>
         <Dropdown>
-            <DropdownItem on:click={switchView}>Day</DropdownItem>
-            <DropdownItem on:click={switchView}>Month</DropdownItem>
+            {#if viewMode!="day"}
+            <DropdownItem on:click={() => switchView("day")} class="viewmodeitem">Day</DropdownItem>
+            {/if}
+            {#if viewMode!="week"}
+            <DropdownItem on:click={() => switchView("week")} class="viewmodeitem">Week</DropdownItem>
+            {/if}
+            {#if viewMode!="month"}
+            <DropdownItem on:click={() => switchView("month")} class="viewmodeitem">Month</DropdownItem>
+            {/if}
         </Dropdown>
     </div>
 

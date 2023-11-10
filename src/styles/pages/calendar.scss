@@ -1,5 +1,5 @@
-$primary-color: #3498db;
-$secondary-color: #e74c3c;
+$primary-color: #fdfdfd;
+$secondary-color: #a1a0a0;
 $background-color: #f4f6f9;
 $font-family: 'Arial', sans-serif;
 
@@ -10,13 +10,14 @@ body {
   padding: 0;
 }
 
+
 button {
   margin-top: 25px;
-  margin-left: 50px;
+  margin-left: 10px;
   background-color: $primary-color;
-  border: none;
+  border-color: $secondary-color;
   border-radius: 5px;
-  color: white;
+  color: rgb(92, 91, 91);
   padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
@@ -52,16 +53,25 @@ button {
 
 .button-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
-
-.test {
+img {
+  margin-left: 25px;
+  margin-top: 25px;
+  left: 50;
+}
+.viewmode  {
   text-decoration: none;
   left: 0;
-  position: absolute;
   z-index: 10000;
 
   * {
     list-style-type: none;
   }
+}
+
+.viewmode .viewmodeitem{
+  margin-top: 0px;
+  margin-left: 0px;
+  width:80px;
 }
