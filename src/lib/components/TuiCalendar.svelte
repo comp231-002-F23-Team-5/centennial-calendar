@@ -132,11 +132,12 @@
     <button on:click={prevMonth}>&lt;</button>
     <button>{month}, {year}</button>
     <button on:click={nextMonth}>&gt;</button>
+    {#if !isCurrentWeek}
+        <button on:click={goToCurrentMonth}>Go to Current Month</button>
+    {/if}
 </div>
 
-{#if !isCurrentWeek}
-    <button on:click={goToCurrentMonth}>Go to Current Month</button>
-{/if}
+
 
 <div id="calendar"></div>
 
