@@ -58,7 +58,7 @@
                                 start: event.FromDate,
                                 end: event.ToDate,
                                 location: event.Location,
-                                body: body
+                                body: body,
                             }
                         ]);
                     });
@@ -153,7 +153,7 @@
     <button>{month}, {year}</button>
     <button on:click={nextMonth}>&gt;</button>
     {#if !isCurrentWeek}
-        <button on:click={goToCurrentMonth}>Go to Current Month</button>
+        <button on:click={goToCurrentMonth}>Go to Current {viewMode}</button>
     {/if}
 </div>
 
