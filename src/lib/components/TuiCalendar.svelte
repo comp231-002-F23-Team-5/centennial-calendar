@@ -5,6 +5,14 @@
     import calendars from "../utils/CalendarPattern.js";
     import fetchEventsByMonth from "../utils/Api.js";
     import {Img, Button, Dropdown, DropdownItem} from 'flowbite-svelte';
+    import { Sun, CloudMoon, PatchQuestionFill } from "svelte-bootstrap-icons";
+    export const handle = async ({ event, resolve }) => {
+        //get theme from cookie
+        const theme = event.cookies.get("theme");
+        if (!theme) {
+            return await resolve(event);
+        }
+    };
 
     let calendar;
     let viewMode = 'month';
@@ -12,6 +20,7 @@
     let currentDate = new Date();
     let year = currentDate.getFullYear(); // Get current year
     let month = currentDate.getMonth() + 1; // Get current month (0-11)
+    let current_theme = "light";
 
     calendar = new Calendar('#calendar', {
         defaultView: viewMode,
@@ -29,6 +38,21 @@
 
     // Load Events
     onMount(async () => {
+        //set theme from saved cookie / window settings
+        const saved_theme = document.documentElement.getAttribute("data-theme");
+        if (saved_theme) {
+            current_theme = saved_theme;
+            return;
+        }
+
+        const preference_is_dark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+        ).matches;
+
+        const theme = preference_is_dark ? "dark" : "light";
+        set_theme(theme); // TODO
+        console.log(current_theme)
+        //load events
         loadEvents(year, month);
     });
 
@@ -129,6 +153,19 @@
         calendar.today();
     }
 
+    function toggle_theme(){
+        const theme = current_theme === "light" ? "dark" : "light";
+        set_theme(theme);
+    }
+
+    function set_theme(theme) {
+        console.log("set theme:"+theme)
+        const one_year = 60 * 60 * 24 * 365;
+        document.cookie = `theme=${theme}; max-age=${one_year}; path=/`;
+        document.documentElement.setAttribute("data-theme", theme);
+        current_theme = theme;
+    }
+
 </script>
 <div class="flex-container">
     <div class="button-cal-wrapper">
@@ -158,7 +195,12 @@
         {/if}
     </div>
     <div class="button-tool-wrapper">
-        <a href='./help' target='_blank'><button>Help</button></a>
+        {#if current_theme=="dark"}
+        <button on:click={toggle_theme}><Sun width={26} height={26} /></button>
+        {:else}
+        <button on:click={toggle_theme}><CloudMoon width={26} height={26} /></button>
+        {/if}
+        <button><a href='./help' target='_blank'><PatchQuestionFill width={26} height={26}/></a></button>
         <Img src="src/assets/user.png" width="60" height="40" alt="logo" />
         <div>Sophia Laxman</div>
     </div>

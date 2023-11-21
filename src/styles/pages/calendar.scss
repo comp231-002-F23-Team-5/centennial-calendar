@@ -1,8 +1,17 @@
-$primary-color: #fdfdfd;
-$secondary-color: #a1a0a0;
-$background-color: #f4f6f9;
-$font-family: 'Arial', sans-serif;
-$nav-element-height: 40px;
+
+  $primary-color: #fdfdfd;
+  $secondary-color: #a1a0a0;
+  $background-color: #f4f6f9;
+  $font-family: 'Arial', sans-serif;
+  $nav-element-height: 40px;
+
+html[theme="dark"]{
+  $primary-color: #fdfdfd;
+  $secondary-color: #a1a0a0;
+  $background-color: #f4f6f9;
+  $font-family: 'Arial', sans-serif;
+  $nav-element-height: 40px;
+}
 
 body {
   font-family: $font-family;
@@ -12,7 +21,7 @@ body {
 }
 
 
-button {
+.button-cal-wrapper button {
   background-color: $primary-color;
   border-color: $secondary-color;
   border-radius: 5px;
@@ -91,7 +100,11 @@ button {
   vertical-align: middle;
   font-size: large;
 }
-
+.button-tool-wrapper button{
+  margin-left: 14px;
+  border: none;
+  background: none;
+}
 .viewmode  {
   text-decoration: none;
   left: 0;
