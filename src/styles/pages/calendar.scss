@@ -2,6 +2,7 @@ $primary-color: #fdfdfd;
 $secondary-color: #a1a0a0;
 $background-color: #f4f6f9;
 $font-family: 'Arial', sans-serif;
+$nav-element-height: 40px;
 
 body {
   font-family: $font-family;
@@ -12,8 +13,6 @@ body {
 
 
 button {
-  margin-top: 25px;
-  margin-left: 10px;
   background-color: $primary-color;
   border-color: $secondary-color;
   border-radius: 5px;
@@ -29,8 +28,7 @@ button {
 }
 
 #calendar {
-  margin: 20px 50px;
-  border: 1px solid $secondary-color;
+  margin: 0px 50px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -51,20 +49,52 @@ button {
   color: darken($background-color, 30%);
 }
 
-.button-wrapper {
+.flex-container { 
+    display: flex; 
+    height:70px; 
+    white-space: 10px;
+    flex-flow: column wrap;  
+    align-content: space-between; 
+    margin: 25px 30px 0px 30px;
+} 
+
+.button-cal-wrapper{
   display: flex;
   justify-content: flex-start;
+  column-gap: 10px;
+  height: $nav-element-height;
 }
-img {
-  margin-left: 25px;
-  margin-top: 25px;
+.button-cal-wrapper img {
   left: 50;
 }
+.button-cal-wrapper div{
+  height: $nav-element-height;
+  line-height: $nav-element-height;
+  vertical-align: middle;
+  font-size: large;
+}
+.button-cal-wrapper div p{
+  font-size: 32px;
+  font-weight: bold;
+  color:#676464;
+}
+.button-tool-wrapper{
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 10px;
+  height: $nav-element-height;
+}
+.button-tool-wrapper div{
+  height: $nav-element-height;
+  line-height: 40px;
+  vertical-align: middle;
+  font-size: large;
+}
+
 .viewmode  {
   text-decoration: none;
   left: 0;
   z-index: 10000;
-
   * {
     list-style-type: none;
   }
@@ -74,4 +104,5 @@ img {
   margin-top: 0px;
   margin-left: 0px;
   width:80px;
+  height: 40px;
 }

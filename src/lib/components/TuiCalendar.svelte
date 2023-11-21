@@ -45,7 +45,7 @@
                         let body = '';
 
                         if (event.URL) {
-                            body = "<a href='+ event.URL + ' target='_href'>eCentennial Link</a>"
+                            body = "<a href='"+ event.URL + "' target='_href'>eCentennial Link</a>"
                         }
 
                         calendar.createSchedules([
@@ -130,31 +130,38 @@
     }
 
 </script>
+<div class="flex-container">
+    <div class="button-cal-wrapper">
+        <a href="https://www.centennialcollege.ca/" target="_blank"><Img src="src/assets/logo.jpeg" width="120" 
+        height="40" alt="logo" /></a>
+        <div><p>eCentennial Calendar</p></div>
+        <div class="viewmode">
+            <Button>{viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}</Button>
+            <Dropdown>
+                {#if viewMode!="day"}
+                <DropdownItem on:click={() => switchView("day")} class="viewmodeitem">Day</DropdownItem>
+                {/if}
+                {#if viewMode!="week"}
+                <DropdownItem on:click={() => switchView("week")} class="viewmodeitem">Week</DropdownItem>
+                {/if}
+                {#if viewMode!="month"}
+                <DropdownItem on:click={() => switchView("month")} class="viewmodeitem">Month</DropdownItem>
+                {/if}
+            </Dropdown>
+        </div>
 
-<div class="button-wrapper">
-    <a href="https://www.centennialcollege.ca/" target="_blank"><Img src="src/assets/logo.jpeg" width="120" 
-    height="40" alt="logo" /></a>
-    <div class="viewmode">
-        <Button>{viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}</Button>
-        <Dropdown>
-            {#if viewMode!="day"}
-            <DropdownItem on:click={() => switchView("day")} class="viewmodeitem">Day</DropdownItem>
-            {/if}
-            {#if viewMode!="week"}
-            <DropdownItem on:click={() => switchView("week")} class="viewmodeitem">Week</DropdownItem>
-            {/if}
-            {#if viewMode!="month"}
-            <DropdownItem on:click={() => switchView("month")} class="viewmodeitem">Month</DropdownItem>
-            {/if}
-        </Dropdown>
+        <button on:click={prevMonth}>&lt;</button>
+        <button>{month}, {year}</button>
+        <button on:click={nextMonth}>&gt;</button>
+        {#if !isCurrentWeek}
+            <button on:click={goToCurrentMonth}>Go to Current Month</button>
+        {/if}
     </div>
-
-    <button on:click={prevMonth}>&lt;</button>
-    <button>{month}, {year}</button>
-    <button on:click={nextMonth}>&gt;</button>
-    {#if !isCurrentWeek}
-        <button on:click={goToCurrentMonth}>Go to Current Month</button>
-    {/if}
+    <div class="button-tool-wrapper">
+        <button>Help</button>
+        <Img src="src/assets/user.png" width="60" height="40" alt="logo" />
+        <div>Sophia Laxman</div>
+    </div>
 </div>
 
 
