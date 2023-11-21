@@ -1,18 +1,19 @@
 <script>
+import {Img} from 'flowbite-svelte';
+import emailjs from 'emailjs-com';
 
-import NavMenu from "../NavMenu.svelte";
-import {Img, Button, Dropdown, DropdownItem} from 'flowbite-svelte';
-var postmark = require("postmark");
+var responseMsg = "";
 
-// Send an email:
-var client = new postmark.ServerClient("POSTMARK-SERVER-API-TOKEN-HERE");
-
-client.sendEmail({
-  "From": "sender@example.com",
-  "To": "recipient@example.com",
-  "Subject": "Test",
-  "TextBody": "Hello from Postmark!"
-});
+function onSubmit(e){
+  emailjs.sendForm('12077159','template_gfxps7t', '#help-form', 'fUeRvqWtT_ztCBgcX')
+	.then(function(response) {
+	   console.log('SUCCESS!', response.status, response.text);
+     responseMsg = "Help form is submitted successfully!";
+	}, function(err) {
+	   console.log('FAILED...', err);
+     responseMsg = "Help form is failed to submit...";
+	});
+}
 </script>
 
 <svelte:head>
@@ -33,25 +34,27 @@ client.sendEmail({
 <div class="form-container">
   <div class="cta-form">
     <h2>Fill out the form to get help!</h2> 
-  <p>Submit the help form and our IT support team will contact you by email soon.</p>
+    <p>Submit the help form and our IT support team will contact you by email soon.</p>
+    <div class="responseMsg">{responseMsg}</div>
   </div>
-  <form action="" class="form">
+  <form id="help-form" on:submit|preventDefault={onSubmit} class="form">
     
-    <input type="text" placeholder="Name" class="form__input" id="name" value="Sophia Laxman">
+    <input type="text" placeholder="Name" class="form__input" id="name" name="name" value="Sophia Laxman">
     <label for="name" class="form__label">Name</label>
 
-    <input type="email" placeholder="Email" class="form__input" id="email" value="sophial244@my.centennialcollege.ca"/>
+    <input type="email" placeholder="Email" class="form__input" id="email" name="email" value="sophial244@my.centennialcollege.ca"/>
     <label for="email" class="form__label">Email</label>
 
-    <input type="text" placeholder="Phone" class="form__input" id="phone" />
+    <input type="text" placeholder="Phone" class="form__input" name="phone" id="phone" />
     <label for="subject" class="form__label">Phone</label>
 
-    <input type="text" placeholder="Subject" class="form__input" id="subject" >
+    <input type="text" placeholder="Subject" class="form__input" name="subject" id="subject" >
     <label for="subject" class="form__label">Subject</label>
 
-    <textarea placeholder="Description" class="form__input form__input__textarea" id="description" rows="4" cols="50"/>
+    <textarea placeholder="Description" class="form__input form__input__textarea" name="description" id="description" rows="4" cols="50"/>
     <label for="subject" class="form__label">Description</label>
     
+    <input type="hidden" name="ticketid" id="ticketid" value="{Date.now()}"/>
     <input class="form__submit" type="submit" value="Submit"/>
   </form>
 </div>

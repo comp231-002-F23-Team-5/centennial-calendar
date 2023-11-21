@@ -158,7 +158,7 @@
         {/if}
     </div>
     <div class="button-tool-wrapper">
-        <button>Help</button>
+        <a href='./help' target='_blank'><button>Help</button></a>
         <Img src="src/assets/user.png" width="60" height="40" alt="logo" />
         <div>Sophia Laxman</div>
     </div>

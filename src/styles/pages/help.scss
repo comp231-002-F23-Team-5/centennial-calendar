@@ -10,7 +10,7 @@ $sans-serif: 'Inter', sans-serif;
     background-color: $off-white;
     color: $black;
     font-family: $sans-serif;
-    height: 60vh;
+    height: 65vh;
     width: 100%;
     padding: 2.5vh 10vw;
     
@@ -134,8 +134,9 @@ $sans-serif: 'Inter', sans-serif;
     }
     .form__input__textarea{
       height: 10rem;
+      padding:  1rem 1rem;;
       &:focus + .form__label, &:not(:placeholder-shown) + .form__label {
-        transform: translateY(-12.50rem) scale(1);
+        transform: translateY(-14.5rem) scale(1);
         color: $black;
       }
     }
@@ -169,3 +170,9 @@ $sans-serif: 'Inter', sans-serif;
       color: rgb(0, 0, 0);
       padding: 16px 32px;
     }
+.responseMsg{
+  font-size: 1.7vh;
+  margin-top: 1vh;
+  color:brown;
+  font-weight: 600;
+}
