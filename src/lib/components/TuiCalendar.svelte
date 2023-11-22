@@ -40,6 +40,10 @@
 
     // Load Events
     onMount(async () => {
+  
+        //load events
+        loadEvents(year, month);
+
         //set theme from saved cookie / window settings
         const saved_theme = getCookie("theme");
         if (saved_theme) {
@@ -60,8 +64,6 @@
         }
         set_theme(theme); // TODO
         console.log(current_theme)
-        //load events
-        loadEvents(year, month);
     });
 
     onDestroy(() => {
