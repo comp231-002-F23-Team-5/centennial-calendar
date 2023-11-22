@@ -26,7 +26,7 @@
     let showAssignment = true;
     let showQuiz = true;
     let showClass = true;
-
+    console.log(calendars())
     calendar = new Calendar('#calendar', {
         defaultView: viewMode,
         taskView: false,
@@ -208,15 +208,21 @@
         document.documentElement.setAttribute("data-theme", theme);
         // set calendar
         // refer: https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/theme.md
+        const themeMap = {
+            'background-dark': '#a9a9a9',
+            'font-dark': 'white',
+            'border-dark': '24px',
+            'background-light': 'white',
+            'font-light': 'black',
+            'border-light': '24px',
+        };
         calendar.setTheme({
-            common: {
-                backgroundColor: 'black',
-                border: '1px dotted #ffffff',
-                dayName: {
-                color: '#515ce6',
-                },
+            //'common.backgroundColor': themeMap['background-'+theme],
+            'week.timegridLeft.backgroundColor': themeMap['background-'+theme],
+            'month.moreView.backgroundColor': 'black',
+            'common.backgroundColor': themeMap['background-'+theme]
             },
-        });
+        );
     }
     function set_fontsize(size){
         console.log("set fontsize:"+size);
@@ -230,11 +236,18 @@
             's': '16px',
             'm': '20px',
             'l': '24px',
+            's_time': '12px',
+            'm_time': '14px',
+            'l_time': '16px',
         };
 
         const updatedTheme = {
             'month.day.fontSize': fontSizeMap[size],
             'month.dayname.fontSize': fontSizeMap[size],
+            'month.schedule.fontSize': fontSizeMap[size],
+            'week.dayname.fontSize': fontSizeMap[size],
+            'week.timegridLeft.fontSize': fontSizeMap[size+"_time"],
+            'week.currentTime.fontSize': fontSizeMap[size+"_time"],
         };
 
         calendar.setTheme(updatedTheme);
