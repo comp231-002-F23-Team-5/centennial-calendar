@@ -1,61 +1,66 @@
 
-  $primary-color: #fdfdfd;
-  $secondary-color: #a1a0a0;
-  $background-color: #f4f6f9;
-  $font-family: 'Arial', sans-serif;
-  $nav-element-height: 40px;
-
-html[theme="dark"]{
-  $primary-color: #fdfdfd;
-  $secondary-color: #a1a0a0;
-  $background-color: #f4f6f9;
-  $font-family: 'Arial', sans-serif;
-  $nav-element-height: 40px;
+  :root {
+  --primary-color: #fdfdfd;
+  --secondary-color: #a1a0a0;
+  --background-color: #f4f6f9;
+  --font-family: 'Arial', sans-serif;
+  --nav-element-height: 40px;
+  }
+  
+[data-theme="dark"]{
+  --primary-color: #000000;
+  --secondary-color: #e9e9e9;
+  --background-color: #a9a9a9;
+  --font-color: #ffffff;
+  --font-family: 'Arial', sans-serif;
+  --nav-element-height: 40px;
 }
 
 body {
-  font-family: $font-family;
-  background-color: $background-color;
+  font-family: var(--font-family);
+  background-color: var(--background-color);
   margin: 0;
   padding: 0;
 }
 
 
 .button-cal-wrapper button {
-  background-color: $primary-color;
-  border-color: $secondary-color;
+  background-color: var(--primary-color);
+  border-color: var(--secondary-color);
   border-radius: 5px;
-  color: rgb(92, 91, 91);
+  color: var(--font-color);
   padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: darken($primary-color, 10%);
+    background-color: --secondary-color;
   }
 }
 
 #calendar {
   margin: 0px 50px;
-  background-color: white;
+  background-color: var(--background-color);
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
+  .tui-full-calendar-layout{
+    color: var(--background-color);
+  }
   .tui-full-calendar-weekday-sun,
   .tui-full-calendar-weekday-sat {
-    color: $secondary-color;
+    color: var(--primary-color);
   }
 
   .tui-full-calendar-dayname-date {
-    background-color: $background-color;
+    background-color: var(--background-color);
     padding: 10px;
   }
 }
 
 .calendar-week-dayname {
   font-weight: bold;
-  color: darken($background-color, 30%);
+  color: var(--font-color);
 }
 
 .flex-container { 
@@ -71,14 +76,14 @@ body {
   display: flex;
   justify-content: flex-start;
   column-gap: 10px;
-  height: $nav-element-height;
+  height: --nav-element-height;
 }
 .button-cal-wrapper img {
   left: 50;
 }
 .button-cal-wrapper div{
-  height: $nav-element-height;
-  line-height: $nav-element-height;
+  height: --nav-element-height;
+  line-height: --nav-element-height;
   vertical-align: middle;
   font-size: large;
 }
@@ -92,10 +97,10 @@ body {
   display: flex;
   justify-content: flex-end;
   column-gap: 10px;
-  height: $nav-element-height;
+  height: --nav-element-height;
 }
 .button-tool-wrapper div{
-  height: $nav-element-height;
+  height: --nav-element-height;
   line-height: 40px;
   vertical-align: middle;
   font-size: large;
