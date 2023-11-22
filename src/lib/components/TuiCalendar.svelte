@@ -5,7 +5,7 @@
     import calendars from "../utils/CalendarPattern.js";
     import fetchEventsByMonth from "../utils/Api.js";
     import {Img, Button, Dropdown, DropdownItem} from 'flowbite-svelte';
-    import { Sun, CloudMoon, PatchQuestionFill } from "svelte-bootstrap-icons";
+    import { Sun, CloudMoon, PatchQuestionFill, Fonts } from "svelte-bootstrap-icons";
     
     /*export const handle = async ({ event, resolve }) => {
         //get theme from cookie
@@ -22,6 +22,7 @@
     let year = currentDate.getFullYear(); // Get current year
     let month = currentDate.getMonth() + 1; // Get current month (0-11)
     let current_theme = "light";
+    let current_fontsize = "m";
 
     calendar = new Calendar('#calendar', {
         defaultView: viewMode,
@@ -44,26 +45,29 @@
         //load events
         loadEvents(year, month);
 
-        //set theme from saved cookie / window settings
-        const saved_theme = getCookie("theme");
-        if (saved_theme) {
-            current_theme = saved_theme;
+        //set theme & font from saved cookie / window settings
+        //theme
+        const savedTheme = getCookie("theme");
+        if (savedTheme) {
+            current_theme = savedTheme;
             console.log("saved theme:"+current_theme);
-            return;
-        }
-        const savedTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
-        console.log("cookie:"+savedTheme);
-        var theme;
-        if (savedTheme){
-            theme = current_theme;
         }else{
             const preference_is_dark = window.matchMedia(
                 "(prefers-color-scheme: dark)",
             ).matches;
-            theme = preference_is_dark ? "dark" : "light";
+            current_theme = preference_is_dark ? "dark" : "light";
         }
-        set_theme(theme); // TODO
+        set_theme(current_theme); // TODO
         console.log(current_theme)
+
+        //font size
+        const savedFontsize = getCookie("fontsize");
+        if (savedFontsize) {
+            current_fontsize = savedFontsize;
+            console.log("saved fontsize:"+savedFontsize);
+        }
+        set_fontsize(current_fontsize); // TODO
+        console.log(current_fontsize)
     });
 
     onDestroy(() => {
@@ -183,10 +187,12 @@
         }
     function set_theme(theme) {
         console.log("set theme:"+theme)
+        current_theme = theme;
         const one_year = 60 * 60 * 24 * 365;
         document.cookie = `theme=${theme}; max-age=${one_year}; path=/`;
+        // set page
         document.documentElement.setAttribute("data-theme", theme);
-        current_theme = theme;
+        // set calendar
         // refer: https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/theme.md
         calendar.setTheme({
             common: {
@@ -197,6 +203,15 @@
                 },
             },
         });
+    }
+    function set_fontsize(size){
+        console.log("set fontsize:"+size);
+        current_fontsize = size;
+        const one_year = 60 * 60 * 24 * 365;
+        document.cookie = `fontsize=${size}; max-age=${one_year}; path=/`;
+        // set page
+        document.documentElement.setAttribute("fontsize", size);
+        // set calendar
     }
 
 </script>
@@ -233,7 +248,9 @@
         {:else}
         <button on:click={toggle_theme}><CloudMoon width={26} height={26} /></button>
         {/if}
-        
+        <button on:click={() => set_fontsize("s")}><Fonts width={18} height={18} /></button>
+        <button on:click={() => set_fontsize("m")}><Fonts width={22} height={22} /></button>
+        <button on:click={() => set_fontsize("l")}><Fonts width={28} height={28} /></button>
         <button><a href='./help' target='_blank'><PatchQuestionFill width={26} height={26}/></a></button>
         <Img src="src/assets/user.png" width="60" height="40" alt="logo" />
         <div>Sophia Laxman</div>

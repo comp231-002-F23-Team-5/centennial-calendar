@@ -1,10 +1,12 @@
-
-  :root {
+:root {
   --primary-color: #fdfdfd;
   --secondary-color: #a1a0a0;
   --background-color: #f4f6f9;
   --font-family: 'Arial', sans-serif;
   --nav-element-height: 40px;
+  --fontsize-weekday: 22px;
+  --fontsize-day: 22px;
+  --fontsize-time: 20px;
   }
   
 [data-theme="dark"]{
@@ -14,6 +16,22 @@
   --font-color: #ffffff;
   --font-family: 'Arial', sans-serif;
   --nav-element-height: 40px;
+}
+
+[fontsize="s"]{
+  --fontsize-weekday: 18px;
+  --fontsize-day: 18px;
+  --fontsize-time: 16px;
+}
+[fontsize="m"]{
+  --fontsize-weekday: 22px;
+  --fontsize-day: 22px;
+  --fontsize-time: 20px;
+}
+[fontsize="l"]{
+  --fontsize-weekday: 26px;
+  --fontsize-day: 26px;
+  --fontsize-time: 24px;
 }
 
 body {
@@ -35,7 +53,7 @@ body {
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: --secondary-color;
+    background-color: var(--secondary-color);
   }
 }
 
@@ -76,14 +94,14 @@ body {
   display: flex;
   justify-content: flex-start;
   column-gap: 10px;
-  height: --nav-element-height;
+  height: var(--nav-element-height);
 }
 .button-cal-wrapper img {
   left: 50;
 }
 .button-cal-wrapper div{
-  height: --nav-element-height;
-  line-height: --nav-element-height;
+  height: var(--nav-element-height);
+  line-height: var(--nav-element-height);
   vertical-align: middle;
   font-size: large;
 }
