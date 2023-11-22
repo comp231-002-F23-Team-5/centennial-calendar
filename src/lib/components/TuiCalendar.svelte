@@ -23,6 +23,9 @@
     let month = currentDate.getMonth() + 1; // Get current month (0-11)
     let current_theme = "light";
     let current_fontsize = "m";
+    let showAssignment = true;
+    let showQuiz = true;
+    let showClass = true;
 
     calendar = new Calendar('#calendar', {
         defaultView: viewMode,
@@ -33,6 +36,7 @@
             monthDayname: day => `<span class="calendar-week-dayname">${day.label}</span>`
         },
         calendars: calendars(),
+        theme : {'common.backgroundColor': 'light'},//set the background color first
     });
     
     
@@ -43,7 +47,7 @@
     onMount(async () => {
   
         //load events
-        loadEvents(year, month);
+        loadEvents(year, month, showAssignment, showQuiz, showClass);
 
         //set theme & font from saved cookie / window settings
         //theme
@@ -74,7 +78,9 @@
         calendar.destroy();
     });
 
-    function loadEvents(year, month) {
+    $: loadEvents(year, month, showAssignment, showQuiz, showClass);
+
+    function loadEvents(year, month, showAssignment, showQuiz, showClass) {
         fetchEventsByMonth(year, month)
             .then(monthlyEvents => {
                 if (calendar) {
@@ -86,19 +92,27 @@
                             body = "<a href='"+ event.URL + "' target='_href'>eCentennial Link</a>"
                         }
 
-                        calendar.createSchedules([
-                            {
-                                id: event._id,
-                                calendarId: event.Type,
-                                title: event.Subject,
-                                category: 'time',
-                                dueDateClass: '',
-                                start: event.FromDate,
-                                end: event.ToDate,
-                                location: event.Location,
-                                body: body
-                            }
-                        ]);
+                        const calendarId = event.Type.toLowerCase();
+
+                        if (
+                            (calendarId === 'assignment' && showAssignment) ||
+                            (calendarId === 'quiz' && showQuiz) ||
+                            (calendarId === 'class' && showClass)
+                        ) {
+                            calendar.createSchedules([
+                                {
+                                    id: event._id,
+                                    calendarId: calendarId,
+                                    title: event.Subject,
+                                    category: 'time',
+                                    dueDateClass: '',
+                                    start: event.FromDate,
+                                    end: event.ToDate,
+                                    location: event.Location,
+                                    body: body,
+                                }
+                            ]);
+                        }
                     });
                 }
             })
@@ -212,6 +226,18 @@
         // set page
         document.documentElement.setAttribute("fontsize", size);
         // set calendar
+        const fontSizeMap = {
+            's': '16px',
+            'm': '20px',
+            'l': '24px',
+        };
+
+        const updatedTheme = {
+            'month.day.fontSize': fontSizeMap[size],
+            'month.dayname.fontSize': fontSizeMap[size],
+        };
+
+        calendar.setTheme(updatedTheme);
     }
 
 </script>
@@ -260,6 +286,20 @@
 
 
 <div id="calendar"></div>
+<div class="checkboxes">
+    <label>
+        <input type="checkbox" bind:checked={showAssignment}>
+        Assignment
+    </label>
+    <label>
+        <input type="checkbox" bind:checked={showQuiz}>
+        Quiz
+    </label>
+    <label>
+        <input type="checkbox" bind:checked={showClass}>
+        Class
+    </label>
+</div> 
 
 <style>
     @import "../../styles/pages/calendar.scss";

@@ -1,5 +1,5 @@
 export default function calendars() {
-    return calendars = [
+    return [
         {
             id: "Class",
             name: "Class",
