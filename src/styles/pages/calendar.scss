@@ -59,17 +59,12 @@ body {
 
 #calendar {
   margin: 0px 50px;
-  background-color: var(--background-color);
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  .tui-full-calendar-layout{
-    background: var(--background-color);
-  }
   .tui-full-calendar-weekday-sun,
   .tui-full-calendar-weekday-sat {
     color: var(--primary-color);
   }
-
   .tui-full-calendar-dayname-date {
     background-color: var(--background-color);
     padding: 10px;

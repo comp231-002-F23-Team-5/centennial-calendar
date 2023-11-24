@@ -60,9 +60,9 @@
             ).matches;
             current_theme = preference_is_dark ? "dark" : "light";
         }
+        
         set_theme(current_theme); // TODO
         console.log(current_theme)
-
         //font size
         const savedFontsize = getCookie("fontsize");
         if (savedFontsize) {
@@ -71,8 +71,20 @@
         }
         set_fontsize(current_fontsize); // TODO
         console.log(current_fontsize)
+        
     });
-
+    function changeCalBgColor(theme){
+        console.log("theme:"+theme);
+        if(current_theme === "light"){
+                document.querySelector('.tui-full-calendar-layout').style.backgroundColor = 'white';
+                document.querySelector('.tui-full-calendar-popup-container').style.backgroundColor = 'white';
+                calendar.setTheme({'week.timegridLeft.backgroundColor': 'white'});
+            } else {
+                document.querySelector('.tui-full-calendar-layout').style.backgroundColor = 'rgba(0,0,0,0.2)';
+                document.querySelector('.tui-full-calendar-popup-container').style.backgroundColor = 'rgba(0,0,0,0.2)';
+                calendar.setTheme({'week.timegridLeft.backgroundColor': 'rgba(0,0,0,0.1)','month.moreView.backgroundColor': 'rgba(0,0,0,0.1)'});
+        }
+    }
     onDestroy(() => {
         calendar.destroy();
     });
@@ -187,7 +199,7 @@
             }
         }
         return "";
-        }
+    }
     function set_theme(theme) {
         console.log("set theme:"+theme)
         current_theme = theme;
@@ -195,17 +207,7 @@
         document.cookie = `theme=${theme}; max-age=${one_year}; path=/`;
         // set page
         document.documentElement.setAttribute("data-theme", theme);
-        // set calendar
-        // refer: https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/theme.md
-        calendar.setTheme({
-            common: {
-                backgroundColor: 'black',
-                border: '1px dotted #ffffff',
-                dayName: {
-                color: '#515ce6',
-                },
-            },
-        });
+        changeCalBgColor(theme);
     }
     function set_fontsize(size){
         console.log("set fontsize:"+size);
