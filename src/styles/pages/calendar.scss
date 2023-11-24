@@ -7,6 +7,8 @@
   --fontsize-weekday: 22px;
   --fontsize-day: 22px;
   --fontsize-time: 20px;
+  --fontsize-eventtitle :12px;
+  --fontsize-cal-selector: 14px;
   }
   
 [data-theme="dark"]{
@@ -22,16 +24,22 @@
   --fontsize-weekday: 18px;
   --fontsize-day: 18px;
   --fontsize-time: 16px;
+  --fontsize-eventtitle :12px;
+  --fontsize-cal-selector: 14px;
 }
 [fontsize="m"]{
   --fontsize-weekday: 22px;
   --fontsize-day: 22px;
   --fontsize-time: 20px;
+  --fontsize-eventtitle :14px;
+  --fontsize-cal-selector: 16px;
 }
 [fontsize="l"]{
   --fontsize-weekday: 26px;
   --fontsize-day: 26px;
   --fontsize-time: 24px;
+  --fontsize-eventtitle :16px;
+  --fontsize-cal-selector: 18px;
 }
 
 body {
@@ -70,10 +78,11 @@ body {
     padding: 10px;
   }
 }
-
+.tui-full-calendar-weekday-schedule-title{
+  font-size:var(--fontsize-eventtitle)
+}
 .calendar-week-dayname {
   font-weight: bold;
-  color: var(--font-color);
 }
 
 .flex-container { 
@@ -137,4 +146,28 @@ body {
   margin-left: 0px;
   width:80px;
   height: 40px;
+}
+
+.checkboxes{
+  margin: 10px 10px 10px 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.checkboxes label{
+  margin-left:10px;
+  font-size: var(--fontsize-cal-selector);
+}
+.checkboxes #cb_assignment{
+  accent-color: #32cf4c;
+}
+.checkboxes #cb_quiz{
+  accent-color: #6067f0;
+}
+.checkboxes #cb_class{
+  accent-color: #d42fb5;
+}
+.tui-full-calendar-popup{
+  background-color: #000000;
 }

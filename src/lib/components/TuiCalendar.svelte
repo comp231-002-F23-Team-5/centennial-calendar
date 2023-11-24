@@ -46,7 +46,7 @@
     onMount(async () => {
   
         //load events
-        loadEvents(year, month);
+        loadEvents(year, month, showAssignment, showQuiz, showClass);
 
         //set theme & font from saved cookie / window settings
         //theme
@@ -80,16 +80,17 @@
                 document.querySelector('.tui-full-calendar-popup-container').style.backgroundColor = 'white';
                 calendar.setTheme({'week.timegridLeft.backgroundColor': 'white'});
             } else {
-                document.querySelector('.tui-full-calendar-layout').style.backgroundColor = 'rgba(0,0,0,0.2)';
-                document.querySelector('.tui-full-calendar-popup-container').style.backgroundColor = 'rgba(0,0,0,0.2)';
-                calendar.setTheme({'week.timegridLeft.backgroundColor': 'rgba(0,0,0,0.1)','month.moreView.backgroundColor': 'rgba(0,0,0,0.1)'});
+                document.querySelector('.tui-full-calendar-layout').style.backgroundColor = '#bababa';
+                document.querySelector('.tui-full-calendar-popup-container').style.backgroundColor = '#bababa';
+                calendar.setTheme({'week.timegridLeft.backgroundColor': 'rgba(0,0,0,0.1)','month.moreView.backgroundColor': '#bababa'});
         }
     }
     onDestroy(() => {
         calendar.destroy();
     });
 
-    function loadEvents(year, month) {
+    $: loadEvents(year, month, showAssignment, showQuiz, showClass);
+    function loadEvents(year, month, showAssignment, showQuiz, showClass) {
         fetchEventsByMonth(year, month)
             .then(monthlyEvents => {
                 if (calendar) {
@@ -101,19 +102,27 @@
                             body = "<a href='"+ event.URL + "' target='_href'>eCentennial Link</a>"
                         }
 
-                        calendar.createSchedules([
-                            {
-                                id: event._id,
-                                calendarId: event.Type,
-                                title: event.Subject,
-                                category: 'time',
-                                dueDateClass: '',
-                                start: event.FromDate,
-                                end: event.ToDate,
-                                location: event.Location,
-                                body: body
-                            }
-                        ]);
+                        const calendarId = event.Type.toLowerCase();
+                        if (
+                            (calendarId === 'assignment' && showAssignment) ||
+                            (calendarId === 'quiz' && showQuiz) ||
+                            (calendarId === 'class' && showClass)
+                        ) {
+                            calendar.createSchedules([
+                                {
+                                    id: event._id,
+                                    calendarId: event.Type,
+                                    title: event.Subject,
+                                    category: 'time',
+                                    dueDateClass: '',
+                                    start: event.FromDate,
+                                    end: event.ToDate,
+                                    location: event.Location,
+                                    body: body,
+                                }
+                            ]);
+                        }
+                        
                     });
                 }
             })
@@ -275,6 +284,20 @@
 </div>
 
 
+<div class="checkboxes">
+    <label>
+        <input type="checkbox" id="cb_assignment" bind:checked={showAssignment}>
+        Assignment
+    </label>
+    <label>
+        <input type="checkbox" id="cb_quiz" bind:checked={showQuiz}>
+        Quiz
+    </label>
+    <label>
+        <input type="checkbox" id="cb_class" bind:checked={showClass}>
+        Class
+    </label>
+</div>
 
 <div id="calendar"></div>
 
