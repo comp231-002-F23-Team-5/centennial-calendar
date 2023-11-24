@@ -23,6 +23,9 @@
     let month = currentDate.getMonth() + 1; // Get current month (0-11)
     let current_theme = "light";
     let current_fontsize = "m";
+    let showAssignment = true;
+    let showQuiz = true;
+    let showClass = true;
 
     calendar = new Calendar('#calendar', {
         defaultView: viewMode,
@@ -212,6 +215,18 @@
         // set page
         document.documentElement.setAttribute("fontsize", size);
         // set calendar
+        const fontSizeMap = {
+            's': '16px',
+            'm': '20px',
+            'l': '24px',
+        };
+
+        const updatedTheme = {
+            'month.day.fontSize': fontSizeMap[size],
+            'month.dayname.fontSize': fontSizeMap[size],
+        };
+
+        calendar.setTheme(updatedTheme);
     }
 
 </script>
