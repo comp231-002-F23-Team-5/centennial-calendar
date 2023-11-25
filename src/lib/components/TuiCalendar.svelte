@@ -64,11 +64,10 @@
         if(theme === "light"){
                 document.querySelector('.tui-full-calendar-layout')["style"].backgroundColor = 'white';
                 calendar.setTheme({'week.timegridLeft.backgroundColor': 'white', 
-                'common.backgroundColor': 'white',
                 'month.moreView.backgroundColor': 'white',});
             } else {
                 document.querySelector('.tui-full-calendar-layout')["style"].backgroundColor = '#8b8a8a';
-                calendar.setTheme({'week.timegridLeft.backgroundColor': 'rgba(0,0,0,0.1)',});
+                calendar.setTheme({'week.timegridLeft.backgroundColor': 'rgba(0,0,0,0.1)','month.moreView.backgroundColor':'#d4d2d2'});
         }
         
     }
@@ -104,6 +103,7 @@
                                     start: event.FromDate,
                                     end: event.ToDate,
                                     location: event.Location,
+                                    isAllDay: event.isAllDay,
                                     body: body,
                                 }
                             ]);
