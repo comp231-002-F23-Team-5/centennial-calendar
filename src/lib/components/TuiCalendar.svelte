@@ -19,7 +19,8 @@
     let showAssignment = true;
     let showQuiz = true;
     let showClass = true;
-    let monthText = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let currentDateRange;
+    //let monthText = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     calendar = new Calendar('#calendar', {
         defaultView: viewMode,
@@ -40,8 +41,8 @@
     onMount(async () => {
   
         //load events
-        loadEvents(year, month, showAssignment, showQuiz, showClass);
-
+        await loadEvents(year, month, showAssignment, showQuiz, showClass);
+        getCurrentDateRange();
         //set theme & font from saved cookie / window settings
         //theme
         const savedTheme = getCookie("theme");
@@ -69,7 +70,6 @@
                 'month.moreView.backgroundColor': 'white',});
             } else {
                 document.querySelector('.tui-full-calendar-layout')["style"].backgroundColor = '#8b8a8a';
-                
                 calendar.setTheme({'week.timegridLeft.backgroundColor': 'rgba(0,0,0,0.1)',});
         }
         
@@ -110,8 +110,7 @@
                                     body: body,
                                 }
                             ]);
-                        }
-                        
+                        }  
                     });
                 }
             })
@@ -130,23 +129,19 @@
         );
     }
 
-    function prevMonth() {
-        calendar.prev();
-        if (viewMode === 'month') {
-            if (month === 1) {
-                month = 12;
-                year -= 1;
-            } else {
-                month -= 1;
-            }
-        }
-        console.log()
-        loadEvents(year, month, showAssignment, showQuiz, showClass);
+    async function prevMonth() {
+        await calendar.prev();
+        const date = new Date(calendar.getDate());
+        year = date.getFullYear();
+        month = date.getMonth();
+        console.log(year);
+        await loadEvents(year, month, showAssignment, showQuiz, showClass);
         isCurrentWeek = isViewingCurrentWeek();
+        getCurrentDateRange();
     }
 
-    function nextMonth() {
-        calendar.next();
+    async function nextMonth() {
+        await calendar.next();
         if (viewMode == 'month') {
             if (month === 12) {
                 month = 1;
@@ -155,8 +150,9 @@
                 month += 1;
             }
         }
-        loadEvents(year, month, showAssignment, showQuiz, showClass);
+        await loadEvents(year, month, showAssignment, showQuiz, showClass);
         isCurrentWeek = isViewingCurrentWeek();
+        getCurrentDateRange();
     }
 
     function switchView(mode) {
@@ -172,6 +168,7 @@
                 break;
         }
         calendar.changeView(viewMode, true);
+        getCurrentDateRange();
     }
 
     function goToCurrentMonth() {
@@ -230,6 +227,21 @@
         calendar.setTheme(updatedTheme);
     }
 
+    function getCurrentDateRange(){
+        var str;
+        if (viewMode == "day"){
+            str = convertDateStr(calendar.getDate());
+        }else{
+            str = convertDateStr(calendar.getDateRangeStart()) + " - " + convertDateStr(calendar.getDateRangeEnd());
+        }
+        currentDateRange = str;
+    }
+
+    function convertDateStr(tz_date){
+        const date = new Date(tz_date);
+        return date.toLocaleDateString('en-US')
+    }
+
 </script>
 <div class="flex-container">
     <div class="button-cal-wrapper">
@@ -251,9 +263,9 @@
             </Dropdown>
         </div>
 
-        <button on:click={prevMonth}>&lt;</button>
-        <div class="monthDisplay">{monthText[month-1]}, {year}</div>
-        <button on:click={nextMonth}>&gt;</button>
+        <button on:click={prevMonth} data-action="move-prev">&lt;</button>
+        <div class="monthDisplay">{currentDateRange}</div>
+        <button on:click={nextMonth} data-action="move-next">&gt;</button>
         {#if !isCurrentWeek}
             <button on:click={goToCurrentMonth}>Go to Current {viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}</button>
         {/if}
