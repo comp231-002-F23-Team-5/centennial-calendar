@@ -1,6 +1,7 @@
 <script>
 import {Img} from 'flowbite-svelte';
 import emailjs from 'emailjs-com';
+import { PersonCircle } from "svelte-bootstrap-icons";
 
 var responseMsg = "";
 
@@ -26,7 +27,7 @@ function onSubmit(e){
       <div><p>eCentennial Calendar - Help Form</p></div>
   </div>
   <div class="button-tool-wrapper">
-      <Img src="src/assets/user.png" width="60" height="40" alt="logo" />
+      <PersonCircle width="60" height="40" />
       <div>Sophia Laxman</div>
   </div>
 </div>

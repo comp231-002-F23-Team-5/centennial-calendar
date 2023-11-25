@@ -1,8 +1,10 @@
 :root {
   --primary-color: #fdfdfd;
-  --secondary-color: #a1a0a0;
+  --secondary-color: #6a6969;
   --background-color: #f4f6f9;
+  --font-color: #000000;
   --font-family: 'Arial', sans-serif;
+  --month-bg-color: rgb(168, 217, 168);
   --nav-element-height: 40px;
   --fontsize-weekday: 22px;
   --fontsize-day: 22px;
@@ -14,15 +16,19 @@
   --fontsize-time: 16px;
   --fontsize-eventtitle :12px;
   --fontsize-cal-selector: 14px;
+  --popup-background: #ffffff;
   }
   
 [data-theme="dark"]{
   --primary-color: #000000;
   --secondary-color: #e9e9e9;
-  --background-color: #a9a9a9;
+  --background-color: #7a7777;
+  --month-bg-color: #55916f;
+  --btn-font-color: #ffffff;
   --font-color: #ffffff;
   --font-family: 'Arial', sans-serif;
   --nav-element-height: 40px;
+  --popup-background: #d4d2d2;
 }
 
 [fontsize="m"]{
@@ -35,7 +41,7 @@
 [fontsize="l"]{
   --fontsize-weekday: 26px;
   --fontsize-day: 26px;
-  --fontsize-time: 24px;
+  --fontsize-time: 22px;
   --fontsize-eventtitle :16px;
   --fontsize-cal-selector: 18px;
 }
@@ -52,7 +58,7 @@ body {
   background-color: var(--primary-color);
   border-color: var(--secondary-color);
   border-radius: 5px;
-  color: var(--font-color);
+  color: var(--btn-font-color);
   padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
@@ -63,11 +69,17 @@ body {
   }
 }
 
+.monthDisplay {
+  background-color: var(--month-bg-color);
+  color: var(--font-color);
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
 #calendar {
   margin: 0px 50px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
 }
 
 .tui-full-calendar-weekday-schedule-title{
@@ -96,15 +108,13 @@ body {
   left: 50;
 }
 .button-cal-wrapper div{
-  height: var(--nav-element-height);
-  line-height: var(--nav-element-height);
   vertical-align: middle;
   font-size: large;
 }
 .button-cal-wrapper div p{
   font-size: 32px;
   font-weight: bold;
-  color:#676464;
+  color:var(--font-color);
   margin-right: 20px;
 }
 .button-tool-wrapper{
@@ -118,12 +128,14 @@ body {
   line-height: 40px;
   vertical-align: middle;
   font-size: large;
+  color: var(--font-color);
 }
 .button-tool-wrapper button{
   margin-left: 14px;
   border: none;
   background: none;
 }
+
 .viewmode  {
   text-decoration: none;
   left: 0;
@@ -150,6 +162,7 @@ body {
 .checkboxes label{
   margin-left:10px;
   font-size: var(--fontsize-cal-selector);
+  color: var(--font-color);
 }
 .checkboxes #cb_assignment{
   accent-color: #d42fb5;
@@ -161,5 +174,8 @@ body {
   accent-color: #32cf4c;
 }
 .tui-full-calendar-popup-container{
-  background-color: var(--background-color);
+  background-color: var(--popup-background);
+}
+.tui-full-calendar-timegrid-hour{
+  font-size: var(--fontsize-time);
 }

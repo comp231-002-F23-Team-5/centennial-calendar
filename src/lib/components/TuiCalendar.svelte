@@ -5,7 +5,7 @@
     import calendars from "../utils/CalendarPattern.js";
     import fetchEventsByMonth from "../utils/Api.js";
     import {Img, Button, Dropdown, DropdownItem} from 'flowbite-svelte';
-    import { Sun, CloudMoon, PatchQuestionFill, Fonts } from "svelte-bootstrap-icons";
+    import { Sun, CloudMoon, PatchQuestionFill, Fonts, PersonCircle } from "svelte-bootstrap-icons";
 
     let calendar;
     let viewMode = 'month';
@@ -18,6 +18,7 @@
     let showAssignment = true;
     let showQuiz = true;
     let showClass = true;
+    let monthText = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     calendar = new Calendar('#calendar', {
         defaultView: viewMode,
@@ -222,6 +223,7 @@
         const updatedTheme = {
             'month.day.fontSize': fontSizeMap[size],
             'month.dayname.fontSize': fontSizeMap[size],
+            'week.currentTime.fontSize': fontSizeMap[size]
         };
 
         calendar.setTheme(updatedTheme);
@@ -249,7 +251,7 @@
         </div>
 
         <button on:click={prevMonth}>&lt;</button>
-        <button>{month}, {year}</button>
+        <div class="monthDisplay">{monthText[month-1]}, {year}</div>
         <button on:click={nextMonth}>&gt;</button>
         {#if !isCurrentWeek}
             <button on:click={goToCurrentMonth}>Go to Current {viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}</button>
@@ -257,15 +259,21 @@
     </div>
     <div class="button-tool-wrapper">
         {#if current_theme=="dark"}
-        <button on:click={toggle_theme}><Sun width={26} height={26} /></button>
+        <button on:click={toggle_theme}><Sun color="white" width={26} height={26} /></button>
+        <button on:click={() => set_fontsize("s")}><Fonts color="white" width={18} height={18} /></button>
+        <button on:click={() => set_fontsize("m")}><Fonts color="white" width={22} height={22} /></button>
+        <button on:click={() => set_fontsize("l")}><Fonts color="white" width={28} height={28} /></button>
+        <button><a href='./help' target='_blank'><PatchQuestionFill color= "rgb(190, 193, 255)" width={26} height={26}/></a></button>
+        <PersonCircle color="white" width="60" height="40" />
         {:else}
         <button on:click={toggle_theme}><CloudMoon width={26} height={26} /></button>
-        {/if}
         <button on:click={() => set_fontsize("s")}><Fonts width={18} height={18} /></button>
         <button on:click={() => set_fontsize("m")}><Fonts width={22} height={22} /></button>
         <button on:click={() => set_fontsize("l")}><Fonts width={28} height={28} /></button>
         <button><a href='./help' target='_blank'><PatchQuestionFill width={26} height={26}/></a></button>
-        <Img src="src/assets/user.png" width="60" height="40" alt="logo" />
+        <PersonCircle width="60" height="40" />
+        {/if}
+        
         <div>Sophia Laxman</div>
     </div>
 </div>
