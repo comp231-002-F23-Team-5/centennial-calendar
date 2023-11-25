@@ -13,6 +13,7 @@
     let currentDate = new Date();
     let year = currentDate.getFullYear(); // Get current year
     let month = currentDate.getMonth() + 1; // Get current month (0-11)
+    let day = currentDate.getDay();
     let current_theme = "light";
     let current_fontsize = "s";
     let showAssignment = true;
@@ -67,7 +68,7 @@
                 'common.backgroundColor': 'white',
                 'month.moreView.backgroundColor': 'white',});
             } else {
-                document.querySelector('.tui-full-calendar-layout')["style"].backgroundColor = '#bababa';
+                document.querySelector('.tui-full-calendar-layout')["style"].backgroundColor = '#8b8a8a';
                 
                 calendar.setTheme({'week.timegridLeft.backgroundColor': 'rgba(0,0,0,0.1)',});
         }
@@ -140,7 +141,7 @@
             }
         }
         console.log()
-        loadEvents(year, month);
+        loadEvents(year, month, showAssignment, showQuiz, showClass);
         isCurrentWeek = isViewingCurrentWeek();
     }
 
@@ -154,7 +155,7 @@
                 month += 1;
             }
         }
-        loadEvents(year, month);
+        loadEvents(year, month, showAssignment, showQuiz, showClass);
         isCurrentWeek = isViewingCurrentWeek();
     }
 
