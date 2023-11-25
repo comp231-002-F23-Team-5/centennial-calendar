@@ -74,7 +74,7 @@
     onDestroy(() => {
         calendar.destroy();
     });
-
+    $: loadEvents(year, month, showAssignment, showQuiz, showClass);
     function loadEvents(year, month, showAssignment, showQuiz, showClass) {
         fetchEventsByMonth(year, month)
             .then(monthlyEvents => {
