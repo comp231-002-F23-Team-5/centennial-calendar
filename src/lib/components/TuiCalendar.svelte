@@ -45,7 +45,6 @@
         const savedTheme = getCookie("theme");
         if (savedTheme) {
             current_theme = savedTheme;
-            console.log("saved theme:"+current_theme);
         }else{
             const preference_is_dark = window.matchMedia(
                 "(prefers-color-scheme: dark)",
@@ -53,17 +52,14 @@
             current_theme = preference_is_dark ? "dark" : "light";
         }
         set_theme(current_theme); // TODO
-        console.log(current_theme)
         //font size
         const savedFontsize = getCookie("fontsize");
         if (savedFontsize) {
             current_fontsize = savedFontsize;
         }
-        console.log("current fontsize:"+savedFontsize);
         set_fontsize(current_fontsize); // TODO
     });
     function changeCalBgColor(theme){
-        console.log("theme:"+theme);
         if(current_theme === "light"){
                 document.querySelector('.tui-full-calendar-layout')["style"].backgroundColor = 'white';
                 calendar.setTheme({'week.timegridLeft.backgroundColor': 'white', 
@@ -142,7 +138,7 @@
                 month -= 1;
             }
         }
-
+        console.log()
         loadEvents(year, month);
         isCurrentWeek = isViewingCurrentWeek();
     }
@@ -178,6 +174,8 @@
 
     function goToCurrentMonth() {
         isCurrentWeek = true;
+        year = currentDate.getFullYear(); // Get current year
+        month = currentDate.getMonth() + 1; // Get current month (0-11)
         calendar.today();
     }
 
@@ -201,7 +199,6 @@
         return "";
     }
     function set_theme(theme) {
-        console.log("set theme:"+theme)
         current_theme = theme;
         const one_year = 60 * 60 * 24 * 365;
         document.cookie = `theme=${theme}; max-age=${one_year}; path=/`;
@@ -210,12 +207,10 @@
         changeCalBgColor(theme);
     }
     function set_fontsize(size){
-        console.log("set fontsize:"+size);
         current_fontsize = size;
         const one_year = 60 * 60 * 24 * 365;
         document.cookie = `fontsize=${size}; max-age=${one_year}; path=/`;
         // set page
-        console.log("set font size")
         document.documentElement.setAttribute("fontsize", size);
         // set calendar
         const fontSizeMap = {
