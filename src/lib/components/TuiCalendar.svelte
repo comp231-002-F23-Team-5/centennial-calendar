@@ -13,14 +13,12 @@
     let currentDate = new Date();
     let year = currentDate.getFullYear(); // Get current year
     let month = currentDate.getMonth() + 1; // Get current month (0-11)
-    let day = currentDate.getDay();
     let current_theme = "light";
     let current_fontsize = "s";
     let showAssignment = true;
     let showQuiz = true;
     let showClass = true;
     let currentDateRange;
-    //let monthText = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     calendar = new Calendar('#calendar', {
         defaultView: viewMode,
@@ -41,7 +39,7 @@
     onMount(async () => {
   
         //load events
-        await loadEvents(year, month, showAssignment, showQuiz, showClass);
+        loadEvents(year, month, showAssignment, showQuiz, showClass);
         getCurrentDateRange();
         //set theme & font from saved cookie / window settings
         //theme
@@ -63,7 +61,7 @@
         set_fontsize(current_fontsize); // TODO
     });
     function changeCalBgColor(theme){
-        if(current_theme === "light"){
+        if(theme === "light"){
                 document.querySelector('.tui-full-calendar-layout')["style"].backgroundColor = 'white';
                 calendar.setTheme({'week.timegridLeft.backgroundColor': 'white', 
                 'common.backgroundColor': 'white',
@@ -78,7 +76,6 @@
         calendar.destroy();
     });
 
-    $: loadEvents(year, month, showAssignment, showQuiz, showClass);
     function loadEvents(year, month, showAssignment, showQuiz, showClass) {
         fetchEventsByMonth(year, month)
             .then(monthlyEvents => {
@@ -129,28 +126,22 @@
         );
     }
 
-    async function prevMonth() {
-        await calendar.prev();
+    function prevRange() {
+        calendar.prev();
         const date = new Date(calendar.getDate());
         year = date.getFullYear();
-        month = date.getMonth();
-        console.log(year);
-        await loadEvents(year, month, showAssignment, showQuiz, showClass);
+        month = date.getMonth() + 1;
+        loadEvents(year, month, showAssignment, showQuiz, showClass);
         isCurrentWeek = isViewingCurrentWeek();
         getCurrentDateRange();
     }
 
-    async function nextMonth() {
-        await calendar.next();
-        if (viewMode == 'month') {
-            if (month === 12) {
-                month = 1;
-                year += 1;
-            } else {
-                month += 1;
-            }
-        }
-        await loadEvents(year, month, showAssignment, showQuiz, showClass);
+    function nextRange() {
+        calendar.next();
+        const date = new Date(calendar.getDate());
+        year = date.getFullYear();
+        month = date.getMonth() + 1;
+        loadEvents(year, month, showAssignment, showQuiz, showClass);
         isCurrentWeek = isViewingCurrentWeek();
         getCurrentDateRange();
     }
@@ -263,9 +254,9 @@
             </Dropdown>
         </div>
 
-        <button on:click={prevMonth} data-action="move-prev">&lt;</button>
+        <button on:click={prevRange} data-action="move-prev">&lt;</button>
         <div class="monthDisplay">{currentDateRange}</div>
-        <button on:click={nextMonth} data-action="move-next">&gt;</button>
+        <button on:click={nextRange} data-action="move-next">&gt;</button>
         {#if !isCurrentWeek}
             <button on:click={goToCurrentMonth}>Go to Current {viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}</button>
         {/if}
