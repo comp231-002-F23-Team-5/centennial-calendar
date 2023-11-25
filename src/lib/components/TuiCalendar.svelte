@@ -252,7 +252,7 @@
         <button>{month}, {year}</button>
         <button on:click={nextMonth}>&gt;</button>
         {#if !isCurrentWeek}
-            <button on:click={goToCurrentMonth}>Go to Current Month</button>
+            <button on:click={goToCurrentMonth}>Go to Current {viewMode.charAt(0).toUpperCase() + viewMode.slice(1)}</button>
         {/if}
     </div>
     <div class="button-tool-wrapper">
