@@ -6,14 +6,6 @@
     import fetchEventsByMonth from "../utils/Api.js";
     import {Img, Button, Dropdown, DropdownItem} from 'flowbite-svelte';
     import { Sun, CloudMoon, PatchQuestionFill, Fonts } from "svelte-bootstrap-icons";
-    
-    /*export const handle = async ({ event, resolve }) => {
-        //get theme from cookie
-        const theme = event.cookies.get("theme");
-        if (!theme) {
-            return await resolve(event);
-        }
-    };*/
 
     let calendar;
     let viewMode = 'month';
@@ -22,7 +14,7 @@
     let year = currentDate.getFullYear(); // Get current year
     let month = currentDate.getMonth() + 1; // Get current month (0-11)
     let current_theme = "light";
-    let current_fontsize = "m";
+    let current_fontsize = "s";
     let showAssignment = true;
     let showQuiz = true;
     let showClass = true;
@@ -60,30 +52,29 @@
             ).matches;
             current_theme = preference_is_dark ? "dark" : "light";
         }
-        
         set_theme(current_theme); // TODO
         console.log(current_theme)
         //font size
         const savedFontsize = getCookie("fontsize");
         if (savedFontsize) {
             current_fontsize = savedFontsize;
-            console.log("saved fontsize:"+savedFontsize);
         }
+        console.log("current fontsize:"+savedFontsize);
         set_fontsize(current_fontsize); // TODO
-        console.log(current_fontsize)
-        
     });
     function changeCalBgColor(theme){
         console.log("theme:"+theme);
         if(current_theme === "light"){
-                document.querySelector('.tui-full-calendar-layout').style.backgroundColor = 'white';
-                document.querySelector('.tui-full-calendar-popup-container').style.backgroundColor = 'white';
-                calendar.setTheme({'week.timegridLeft.backgroundColor': 'white'});
+                document.querySelector('.tui-full-calendar-layout')["style"].backgroundColor = 'white';
+                calendar.setTheme({'week.timegridLeft.backgroundColor': 'white', 
+                'common.backgroundColor': 'white',
+                'month.moreView.backgroundColor': 'white',});
             } else {
-                document.querySelector('.tui-full-calendar-layout').style.backgroundColor = '#bababa';
-                document.querySelector('.tui-full-calendar-popup-container').style.backgroundColor = '#bababa';
-                calendar.setTheme({'week.timegridLeft.backgroundColor': 'rgba(0,0,0,0.1)','month.moreView.backgroundColor': '#bababa'});
+                document.querySelector('.tui-full-calendar-layout')["style"].backgroundColor = '#bababa';
+                
+                calendar.setTheme({'week.timegridLeft.backgroundColor': 'rgba(0,0,0,0.1)',});
         }
+        
     }
     onDestroy(() => {
         calendar.destroy();
@@ -224,6 +215,7 @@
         const one_year = 60 * 60 * 24 * 365;
         document.cookie = `fontsize=${size}; max-age=${one_year}; path=/`;
         // set page
+        console.log("set font size")
         document.documentElement.setAttribute("fontsize", size);
         // set calendar
         const fontSizeMap = {

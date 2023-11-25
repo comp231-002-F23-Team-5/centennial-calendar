@@ -9,6 +9,11 @@
   --fontsize-time: 20px;
   --fontsize-eventtitle :12px;
   --fontsize-cal-selector: 14px;
+  --fontsize-weekday: 18px;
+  --fontsize-day: 18px;
+  --fontsize-time: 16px;
+  --fontsize-eventtitle :12px;
+  --fontsize-cal-selector: 14px;
   }
   
 [data-theme="dark"]{
@@ -20,13 +25,6 @@
   --nav-element-height: 40px;
 }
 
-[fontsize="s"]{
-  --fontsize-weekday: 18px;
-  --fontsize-day: 18px;
-  --fontsize-time: 16px;
-  --fontsize-eventtitle :12px;
-  --fontsize-cal-selector: 14px;
-}
 [fontsize="m"]{
   --fontsize-weekday: 22px;
   --fontsize-day: 22px;
@@ -69,15 +67,9 @@ body {
   margin: 0px 50px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  .tui-full-calendar-weekday-sun,
-  .tui-full-calendar-weekday-sat {
-    color: var(--primary-color);
-  }
-  .tui-full-calendar-dayname-date {
-    background-color: var(--background-color);
-    padding: 10px;
-  }
+
 }
+
 .tui-full-calendar-weekday-schedule-title{
   font-size:var(--fontsize-eventtitle)
 }
@@ -160,14 +152,14 @@ body {
   font-size: var(--fontsize-cal-selector);
 }
 .checkboxes #cb_assignment{
-  accent-color: #32cf4c;
+  accent-color: #d42fb5;
 }
 .checkboxes #cb_quiz{
   accent-color: #6067f0;
 }
 .checkboxes #cb_class{
-  accent-color: #d42fb5;
+  accent-color: #32cf4c;
 }
-.tui-full-calendar-popup{
-  background-color: #000000;
+.tui-full-calendar-popup-container{
+  background-color: var(--background-color);
 }
