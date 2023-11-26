@@ -40,19 +40,19 @@ function onSubmit(e){
   </div>
   <form id="help-form" on:submit|preventDefault={onSubmit} class="form">
     
-    <input type="text" placeholder="Name" class="form__input" id="name" name="name" value="Sophia Laxman">
+    <input type="text" placeholder="Name" class="form__input" id="name" name="name" value="Sophia Laxman" required>
     <label for="name" class="form__label">Name</label>
 
-    <input type="email" placeholder="Email" class="form__input" id="email" name="email" value="sophial244@my.centennialcollege.ca"/>
+    <input type="email" placeholder="Email" class="form__input" id="email" name="email" value="sophial244@my.centennialcollege.ca" required/>
     <label for="email" class="form__label">Email</label>
 
-    <input type="text" placeholder="Phone" class="form__input" name="phone" id="phone" />
+    <input type="text" placeholder="Phone" class="form__input" name="phone" id="phone" required/>
     <label for="subject" class="form__label">Phone</label>
 
-    <input type="text" placeholder="Subject" class="form__input" name="subject" id="subject" >
+    <input type="text" placeholder="Subject" class="form__input" name="subject" id="subject" required>
     <label for="subject" class="form__label">Subject</label>
 
-    <textarea placeholder="Description" class="form__input form__input__textarea" name="description" id="description" rows="4" cols="50"/>
+    <textarea placeholder="Description" class="form__input form__input__textarea" name="description" id="description" rows="4" cols="50" required/>
     <label for="subject" class="form__label">Description</label>
     
     <input type="hidden" name="ticketid" id="ticketid" value="{Date.now()}"/>
