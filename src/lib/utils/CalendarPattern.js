@@ -1,5 +1,5 @@
 export default function calendars() {
-    return calendars = [
+    return [
         {
             id: "Class",
             name: "Class",
@@ -9,7 +9,7 @@ export default function calendars() {
             borderColor: "#32cf4c"
         },
         {
-            id: "Assignment",
+            id: "Quiz",
             name: "Quiz",
             color: "#ffffff",
             bgColor: "#6067f0",
@@ -17,7 +17,7 @@ export default function calendars() {
             borderColor: "#6067f0"
         },
         {
-            id: "Quiz",
+            id: "Assignment",
             name: "Assignment",
             color: "#ffffff",
             bgColor: "#d42fb5",
